@@ -43,7 +43,7 @@ int findMinValueLeaf(t_map map, int* x, int* y) {
 
     for (int i = 0; i < map.y_max; i++) {
         for (int j = 0; j < map.x_max; j++) {
-            if (map.costs[i][j]  > 0) {
+            if (map.costs[i][j]  >= 0) {
                 if (map.costs[i][j] < minValue) {
                     minValue = map.costs[i][j];
                     *x = i;

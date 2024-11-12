@@ -23,9 +23,9 @@ int main() {
         printf("\n");
     }
     displayMap(map);
+
     int x, y;
     int minValue = findMinValueLeaf(map, &x, &y);
-
     if (x != -1 && y != -1) {
         printf("\nLa valeur minimale de la feuille est a la position (%d, %d) et est egal a %d.\n", x, y, minValue);}
     return 0;
