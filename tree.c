@@ -1,4 +1,8 @@
+//
+// Created by maely on 12/11/2024.
+//
 #include <malloc.h>
+#include <assert.h>
 #include <stdlib.h>
 #include "tree.h"
 
@@ -19,25 +23,14 @@ t_node *createNode(int val, int depth, int nb_sons, int *avails, int nbAvails){
     return new_node;
 }
 
-t_node *findMinValueLeaf(t_node *root) {
-    if (root == NULL) return NULL;
 
-    // Cas d'une feuille (pas de fils)
-    if (root->nbSons == 0) {
-        return root;
-    }
-
-    // Sinon, explorer les fils
-    t_node *minLeaf = NULL;
-    for (int i = 0; i < root->nbSons; i++) {
-        t_node *leaf = findMinValueLeaf(root->sons[i]);
-        if (leaf != NULL) {
-            if (minLeaf == NULL || leaf->val < minLeaf->val) {
-                minLeaf = leaf;
-            }
+void freeNode(t_node *node){
+    if (node) {
+        for (int i = 0; i < node->nbSons; i++) {
+            freeNode(node->sons[i]);
         }
+        free(node->sons);
+        free(node->avails);
+        free(node);
     }
-
-    return minLeaf;
 }
-
