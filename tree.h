@@ -17,9 +17,10 @@ typedef struct s_node{
     int nbAvails;
 } t_node;
 
-
+//cree noeud
 t_node *createNode(int val, int depth, int nb_sons, int *avails, int nbAvails);
 
-
+//liberer un noeud
+void freeNode(t_node *node);
 
 #endif //MARC_TREE_H

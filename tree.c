@@ -22,3 +22,15 @@ t_node *createNode(int val, int depth, int nb_sons, int *avails, int nbAvails){
     new_node->nbAvails = nbAvails;
     return new_node;
 }
+
+
+void freeNode(t_node *node){
+    if (node) {
+        for (int i = 0; i < node->nbSons; i++) {
+            freeNode(node->sons[i]);
+        }
+        free(node->sons);
+        free(node->avails);
+        free(node);
+    }
+}
