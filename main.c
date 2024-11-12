@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "map.h"
+#include "tree.h"
 
 int main() {
     t_map map = createMapFromFile("..\\maps\\example1.map");
@@ -22,5 +23,7 @@ int main() {
         printf("\n");
     }
     displayMap(map);
+    t_node *minLeaf = findMinValueLeaf(t_map map, int* x, int* y);
+    printf("Feuille avec la valeur minimale: %d\n", minLeaf->val);
     return 0;
 }
