@@ -23,7 +23,10 @@ int main() {
         printf("\n");
     }
     displayMap(map);
-    t_node *minLeaf = findMinValueLeaf(t_map map, int* x, int* y);
-    printf("Feuille avec la valeur minimale: %d\n", minLeaf->val);
+    int x, y;
+    int minValue = findMinValueLeaf(map, &x, &y);
+
+    if (x != -1 && y != -1) {
+        printf("\nLa valeur minimale de la feuille est a la position (%d, %d) avec une valeur de %d.\n", x, y, minValue);}
     return 0;
 }
