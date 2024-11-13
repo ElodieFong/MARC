@@ -78,5 +78,4 @@ void displayStack(t_stack s)
         }
         printf("]\n");
     }
-    return;
 }

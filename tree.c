@@ -86,9 +86,7 @@ t_node *findMinValueLeaf(t_node *root) {
 int isPath(t_node *root, t_node *node, t_stack *pile) {
     if (root == NULL)
         return 0;
-    printf(" %d, %d, %d\n", root->val, pile->nbElts, pile->size);
     push(pile, root->val);
-    printf("%d, %d, %d\n", root->val, pile->nbElts, pile->size);
     if (root == node) {
         return 1;
     }
@@ -101,7 +99,7 @@ int isPath(t_node *root, t_node *node, t_stack *pile) {
 }
 
 t_stack chemin (t_node *root, t_node *node_min) {
-    t_stack pile = createStack(root->nbSons+2);
+    t_stack pile = createStack(root->nbSons);
     isPath(root, node_min, &pile);
     return pile;
 }

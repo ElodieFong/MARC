@@ -34,8 +34,8 @@ int main() {
     // Trouver la feuille avec la valeur minimale
     t_node *minLeaf = findMinValueLeaf(root);
     printf("Feuille avec la valeur minimale: %d\n", minLeaf->val);
-    //t_stack path = chemin (&root, &minLeaf);
-    //displayStack(path);
+    t_stack path = chemin (root, minLeaf);
+    displayStack(path);
 /*
     //  tableau test des coûts de mouvement
     int mvCosts[] = {1, 2, 3, 4, 5}; // Exemple de valeurs de coûts
