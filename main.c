@@ -34,7 +34,7 @@ int main() {
     // Trouver la feuille avec la valeur minimale
     t_node *minLeaf = findMinValueLeaf(root);
     printf("Feuille avec la valeur minimale: %d\n", minLeaf->val);
-/*
+    /*
     //  tableau test des coûts de mouvement
     int mvCosts[] = {1, 2, 3, 4, 5}; // Exemple de valeurs de coûts
     int initialMoves[] = {0, 1, 2, 3, 4}; // Exemple de 5 mouvements possibles
@@ -50,11 +50,9 @@ int main() {
 
     // Libérer l'arbre après usage
     freeNode(root);
+     */
 
-    int x, y;
-    int minValue = findMinValueLeaf(map, &x, &y);
-    if (x != -1 && y != -1) {
-        printf("\nLa valeur minimale de la feuille est a la position (%d, %d) et est egal a %d.\n", x, y, minValue);}
-    */return 0;
+
+    return 0;
 
 }
