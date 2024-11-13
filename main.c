@@ -23,6 +23,17 @@ int main() {
         printf("\n");
     }
     displayMap(map);
+    int avail[] = {1, 2};
+    t_node *root = createNode(10, 0, 2, avail, 2);
+
+    // Créer les sous-arbres
+    root->sons[0] = createNode(3, 1, 0, NULL, 0);  // Feuille
+    root->sons[1] = createNode(15, 1, 1, NULL, 0);
+    root->sons[1]->sons[0] = createNode(7, 2, 0, NULL, 0);  // Feuille
+
+    // Trouver la feuille avec la valeur minimale
+    t_node *minLeaf = findMinValueLeaf(root);
+    printf("Feuille avec la valeur minimale: %d\n", minLeaf->val);
 /*
     //  tableau test des coûts de mouvement
     int mvCosts[] = {1, 2, 3, 4, 5}; // Exemple de valeurs de coûts

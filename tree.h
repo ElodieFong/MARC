@@ -29,7 +29,7 @@ void freeNode(t_node *node);
 void creatTree(t_node *node, int maxDepth, int *mvCosts);
 
 //valeur min d'une feuille
-int findMinValueLeaf(t_map map, int* x, int* y);
+t_node *findMinValueLeaf(t_node *root);
 
 //cherche un chemin
 int isPath(t_node *root, t_node *node, t_stack *pile);

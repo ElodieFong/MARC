@@ -59,24 +59,27 @@ void creatTree(t_node *node, int maxDepth, int *mvCosts){
     }
 }
 
-int findMinValueLeaf(t_map map, int* x, int* y) {
-    int minValue = INT_MAX;
-    *x = -1;
-    *y = -1;
+t_node *findMinValueLeaf(t_node *root) {
+    if (root == NULL) return NULL;
 
-    for (int i = 0; i < map.y_max; i++) {
-        for (int j = 0; j < map.x_max; j++) {
-            if (map.costs[i][j] >= 0) {
-                if (map.costs[i][j] < minValue) {
-                    minValue = map.costs[i][j];
-                    *x = i;
-                    *y = j;
-                }
+    // Cas d'une feuille (pas de fils)
+    if (root->nbSons == 0) {
+        return root;
+    }
+
+    // Sinon, explorer les fils
+    t_node *minLeaf = NULL;
+    for (int i = 0; i < root->nbSons; i++) {
+        t_node *leaf = findMinValueLeaf(root->sons[i]);
+        if (leaf != NULL) {
+            // Si c'est le premier minLeaf ou si on trouve une feuille avec une valeur inférieure
+            if (minLeaf == NULL || leaf->val < minLeaf->val) {
+                minLeaf = leaf;
             }
         }
     }
 
-    return minValue;
+    return minLeaf;
 }
 
 int isPath(t_node *root, t_node *node, t_stack *pile) {
