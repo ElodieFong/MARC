@@ -7,6 +7,7 @@
 
 #include <stdlib.h>
 #include "map.h"
+#include "stack.h"
 
 // structure d'un noeud
 typedef struct s_node{
@@ -26,4 +27,7 @@ void freeNode(t_node *node);
 
 //valeur min d'une feuille
 int findMinValueLeaf(t_map map, int* x, int* y);
+
+//chemin de la racine vers la feuille de valeur minimale
+t_stack chemin (t_node *node, t_node *node_min);
 #endif //MARC_TREE_H

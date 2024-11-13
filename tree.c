@@ -55,3 +55,14 @@ int findMinValueLeaf(t_map map, int* x, int* y) {
 
     return minValue;
 }
+
+t_stack chemin (t_node *root, t_node *node_min) {
+    t_stack pile = createStack(root->nbSons);
+    if (root == node_min) {
+        return pile;
+    }
+    for (int i = 0; i < root->nbSons; i++) {
+        push(&pile, root->val);
+        return chemin(root->sons[i], node_min);
+    }
+}
