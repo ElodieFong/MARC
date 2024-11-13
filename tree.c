@@ -1,8 +1,7 @@
 //
 // Created by maely on 12/11/2024.
 //
-#include <malloc.h>
-#include <assert.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include "tree.h"
 #include "map.h"
@@ -36,6 +35,30 @@ void freeNode(t_node *node){
     }
 }
 
+void creatTree(t_node *node, int maxDepth, int *mvCosts){
+    if (node->depth >= maxDepth){
+        return;
+    }//s'arreter a la profondeur maxi
+    for(int i = 0; i<node->nbAvails; i++){
+        int move = node->avails[i];
+        int new_cost = node->val + mvCosts[move];
+        int *new_avails = malloc((node->nbAvails - 1)* sizeof(int)); //creer les autre mouvement
+        int idx = 0;
+
+        //copier les autre mouv dispo sauf le dernier utiliser
+        for(int j=0; j<node->nbAvails; j++){
+            if(node->avails[j] != move){
+                new_avails[idx++] = node->avails[j];
+            }
+        }
+
+        //créé le noeud suivant (l'enfant quoi)
+        createNode(new_cost, node->depth+1, node->nbSons-1, new_avails, node->nbAvails);
+        free(new_avails);
+        creatTree(node->sons[i], maxDepth, mvCosts);
+    }
+}
+
 int findMinValueLeaf(t_map map, int* x, int* y) {
     int minValue = INT_MAX;
     *x = -1;
@@ -64,7 +87,8 @@ int isPath(t_node *root, t_node *node, t_stack *pile) {
         return 1;
     }
     for (int i = 0; i < root->nbSons; i++) {
-        isPath(root->sons[i], node, pile);
+        if(isPath(root->sons[i], node, pile))
+            return 1;
     }
     pop(pile);
     return 0;

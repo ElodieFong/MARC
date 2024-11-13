@@ -25,6 +25,9 @@ t_node *createNode(int val, int depth, int nb_sons, int *avails, int nbAvails);
 //liberer un noeud
 void freeNode(t_node *node);
 
+//creer l'arbre
+void creatTree(t_node *node, int maxDepth, int *mvCosts);
+
 //valeur min d'une feuille
 int findMinValueLeaf(t_map map, int* x, int* y);
 
