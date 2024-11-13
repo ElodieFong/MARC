@@ -44,5 +44,6 @@ int pop(t_stack *);
  */
 int top(t_stack);
 
+void displayStack(t_stack s);
 
 #endif //UNTITLED1_STACK_H

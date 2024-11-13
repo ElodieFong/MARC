@@ -36,9 +36,8 @@ void freeNode(t_node *node){
 }
 
 void creatTree(t_node *node, int maxDepth, int *mvCosts){
-    if (node->depth >= maxDepth){
-        return;
-    }//s'arreter a la profondeur maxi
+    if (node->depth >= maxDepth)
+        return; //s'arreter a la profondeur maxi
     for(int i = 0; i<node->nbAvails; i++){
         int move = node->avails[i];
         int new_cost = node->val + mvCosts[move];
@@ -87,7 +86,9 @@ t_node *findMinValueLeaf(t_node *root) {
 int isPath(t_node *root, t_node *node, t_stack *pile) {
     if (root == NULL)
         return 0;
+    printf(" %d, %d, %d\n", root->val, pile->nbElts, pile->size);
     push(pile, root->val);
+    printf("%d, %d, %d\n", root->val, pile->nbElts, pile->size);
     if (root == node) {
         return 1;
     }
@@ -100,7 +101,7 @@ int isPath(t_node *root, t_node *node, t_stack *pile) {
 }
 
 t_stack chemin (t_node *root, t_node *node_min) {
-    t_stack pile = createStack(root->nbSons);
+    t_stack pile = createStack(root->nbSons+2);
     isPath(root, node_min, &pile);
     return pile;
 }

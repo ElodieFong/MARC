@@ -4,6 +4,7 @@
 
 #include <malloc.h>
 #include <assert.h>
+#include <stdio.h>
 #include "stack.h"
 
 /**
@@ -60,4 +61,22 @@ int top(t_stack stack)
     // the stack must not be empty
     assert(stack.nbElts > 0);
     return stack.values[stack.nbElts - 1];
+}
+
+void displayStack(t_stack s)
+{
+    if (s.nbElts == 0)
+        printf("stack [empty]\n");
+    else
+    {
+        printf("stack [");
+        int i = s.nbElts;
+        while (i != 0)
+        {
+            printf(" : %d ", *(s.values+i-1));
+            i--;
+        }
+        printf("]\n");
+    }
+    return;
 }
