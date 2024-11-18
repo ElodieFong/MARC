@@ -44,6 +44,12 @@ int main() {
     printf("Feuille avec la valeur minimale: %d\n", minLeaf->val);
     t_stack path = chemin (root, minLeaf);
     displayStack(path);
+
+// fonction affichage crash test debut
+displayTree(root, 0);
+// fonction affichage crash test fin
+
+
 /*
     //  tableau test des coûts de mouvement
     int mvCosts[] = {1, 2, 3, 4, 5}; // Exemple de valeurs de coûts
