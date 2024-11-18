@@ -103,3 +103,36 @@ t_stack chemin (t_node *root, t_node *node_min) {
     isPath(root, node_min, &pile);
     return pile;
 }
+
+
+// fonction affichage crash test
+
+void displayTree(t_node *node, int level) {
+    if (node == NULL) {
+        return;
+    }
+
+    // Indentation pour montrer la hiérarchie
+    for (int i = 0; i < level; i++) {
+        printf("    ");
+    }
+
+    // Affichage des informations du nœud
+    printf("Node (val: %d, depth: %d, nbSons: %d, nbAvails: %d, avails: [",
+           node->val, node->depth, node->nbSons, node->nbAvails);
+
+    // Afficher le tableau avails
+    for (int i = 0; i < node->nbAvails; i++) {
+        printf("%d", node->avails[i]);
+        if (i < node->nbAvails - 1) {
+            printf(", ");
+        }
+    }
+    printf("])\n");
+
+    // Parcourir et afficher les fils
+    for (int i = 0; i < node->nbSons; i++) {
+        displayTree(node->sons[i], level + 1);
+    }
+}
+
