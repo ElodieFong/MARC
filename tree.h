@@ -37,3 +37,6 @@ int isPath(t_node *root, t_node *node, t_stack *pile);
 //chemin de la racine vers la feuille de valeur minimale
 t_stack chemin (t_node *node, t_node *node_min);
 #endif //MARC_TREE_H
+
+// fonction affichage crash test
+void displayTree(t_node *node, int level);
