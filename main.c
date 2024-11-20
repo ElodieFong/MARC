@@ -35,7 +35,7 @@ int main() {
     t_node *root = createNode(10, 0, 2, avail);
     printf("%d\n", root->val);
     // Créer les sous-arbres
-    root->sons[0] = createNode(3, 1, 0, NULL);  // Feuille
+    root->sons[0] = createNode(30, 1, 0, NULL);  // Feuille
     root->sons[1] = createNode(15, 1, 1, NULL);
     root->sons[1]->sons[0] = createNode(7, 2, 0, NULL);  // Feuille
 
@@ -52,16 +52,14 @@ int main() {
 
 
     //  tableau test des coûts de mouvement
-    int mvCosts[] = {1, 2, 3, 4, 5}; // Exemple de valeurs de coûts
-    int initialMoves[] = {0, 1, 2, 3, 4}; // Exemple de 5 mouvements possibles
-    int nbInitialMoves = 5;
+    int initialMoves[] = {1, 2, 3, 4, 5}; // Exemple de 5 mouvements possibles
 
     // Créer la racine de l'arbre pour la phase
-    root = createNode(0, 0, nbInitialMoves, initialMoves);
+    root = createNode(0, 0, 5, initialMoves);
 
     // Construire l'arbre pour la phase de 5 mouvements (ou 4 si case REG)
     int maxDepth = 5;
-    creatTree(root, maxDepth, mvCosts);
+    creatTree(root, maxDepth, initialMoves);
 
 
     // Libérer l'arbre après usage
