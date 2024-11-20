@@ -31,12 +31,13 @@ int main() {
         printf("\n");
     }
     displayMap(map);
-    int avail[] = {1, 2};
+    /*int avail[] = {1, 2};
+    int son[] = {7};
     t_node *root = createNode(10, 0, 2, avail);
     printf("%d\n", root->val);
     // Créer les sous-arbres
     root->sons[0] = createNode(30, 1, 0, NULL);  // Feuille
-    root->sons[1] = createNode(15, 1, 1, NULL);
+    root->sons[1] = createNode(15, 1, 1, son);
     root->sons[1]->sons[0] = createNode(7, 2, 0, NULL);  // Feuille
 
     // Trouver la feuille avec la valeur minimale
@@ -46,22 +47,22 @@ int main() {
     displayStack(path);
 
     // fonction affichage crash test debut
-    //displayTree(root, 0);
+    displayTree(root, 0);
     // fonction affichage crash test fin
 
-
+*/
 
     //  tableau test des coûts de mouvement
     int initialMoves[] = {1, 2, 3, 4, 5}; // Exemple de 5 mouvements possibles
 
     // Créer la racine de l'arbre pour la phase
-    root = createNode(0, 0, 5, initialMoves);
+    t_node *root = createNode(0, 0, 5, initialMoves);
 
     // Construire l'arbre pour la phase de 5 mouvements (ou 4 si case REG)
-    int maxDepth = 5;
+    int maxDepth = 3;
     creatTree(root, maxDepth);
 
-
+    displayTree(root, 0);
     // Libérer l'arbre après usage
     freeNode(root);
 

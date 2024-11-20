@@ -6,16 +6,33 @@
 #include "tree.h"
 #include "map.h"
 
-t_node *createNode(int val, int depth, int nb_sons, int *mvCosts){
-    t_node *new_node = (t_node*)malloc(sizeof(t_node));
+t_node *createNode(int val, int depth, int nb_sons, int *mvCosts) {
+    t_node *new_node = (t_node *)malloc(sizeof(t_node));
+    if (!new_node) {
+        return NULL; // retourne null si le malloc échoue
+    }
     new_node->val = val;
     new_node->depth = depth;
     new_node->nbSons = nb_sons;
+
     new_node->sons = (t_node **)malloc(nb_sons * sizeof(t_node *));
+    if (!new_node->sons) {
+        free(new_node); // Libère la mémoire si ca échoue
+        return NULL;
+    }
     for (int i = 0; i < nb_sons; i++) {
         new_node->sons[i] = NULL;
     }
-    new_node->avails = mvCosts;
+
+    new_node->avails = (int *)malloc(nb_sons * sizeof(int));
+    if (!new_node->avails) { // libère la mémoire si le malloc échoue
+        free(new_node->sons);
+        free(new_node);
+        return NULL;
+    }
+    for (int i = 0; i < nb_sons; i++) {
+        new_node->avails[i] = mvCosts[i];
+    }
     return new_node;
 }
 
@@ -32,28 +49,23 @@ void freeNode(t_node *node){
 }
 
 void creatTree(t_node *node, int maxDepth){
-    printf("ca marche, depth = %d   ", node->depth);
     if (node->depth >= maxDepth){
-        printf("depth max atteint, noeud = %d\n", node->val);
         return; //s'arreter a la profondeur maxi
         }
     for(int i = 0; i<node->nbSons; i++){
         int move = node->avails[i];
         int new_cost = move;
-        printf("ca marche i, enfant = %d    ", move);
-        int *new_avails = malloc((node->nbSons - 1)* sizeof(int)); //creer les autre mouvement
+        int *new_avails = malloc((node->nbSons - 1)* sizeof(int)); //nouveau tableau sans la val du noeud
         int idx = 0;
 
         //copier les autre mouv dispo sauf le dernier utiliser
-        printf("boucle j if, avails [");
         for(int j=0; j<node->nbSons; j++){
             if(node->avails[j] != move){
                 new_avails[idx++] = node->avails[j];
                 printf("%d, ", node->avails[j]);
             }
         }
-        printf("]\n");
-        //créé le noeud suivant (l'enfant quoi)
+        //créé le noeud suivant
         node->sons[i] = createNode(new_cost, node->depth+1, node->nbSons-1, new_avails);
         free(new_avails);
         creatTree(node->sons[i], maxDepth);
