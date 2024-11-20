@@ -6,8 +6,8 @@
 #include "tree.h"
 #include "map.h"
 
-t_node *createNode(int val, int depth, int nb_sons, int *avails, int nbAvails){
-    t_node *new_node = (t_node *)malloc(sizeof(t_node));
+t_node *createNode(int val, int depth, int nb_sons, int *mvCosts){
+    t_node *new_node = (t_node*)malloc(sizeof(t_node));
     new_node->val = val;
     new_node->depth = depth;
     new_node->nbSons = nb_sons;
@@ -15,11 +15,7 @@ t_node *createNode(int val, int depth, int nb_sons, int *avails, int nbAvails){
     for (int i = 0; i < nb_sons; i++) {
         new_node->sons[i] = NULL;
     }
-    new_node->avails = (int *)malloc(nbAvails * sizeof(int));
-    for (int i = 0; i < nbAvails; i++) {
-        new_node->avails[i] = avails[i];
-    }
-    new_node->nbAvails = nbAvails;
+    new_node->avails = mvCosts;
     return new_node;
 }
 
@@ -35,26 +31,27 @@ void freeNode(t_node *node){
     }
 }
 
-void creatTree(t_node *node, int maxDepth, int *mvCosts){
+void creatTree(t_node *node, int maxDepth, int *choix){
+    printf("ca marche, noeud = %d\n", node->val);
     if (node->depth >= maxDepth)
         return; //s'arreter a la profondeur maxi
-    for(int i = 0; i<node->nbAvails; i++){
+    for(int i = 0; i<node->nbSons; i++){
         int move = node->avails[i];
-        int new_cost = node->val + mvCosts[move];
-        int *new_avails = malloc((node->nbAvails - 1)* sizeof(int)); //creer les autre mouvement
+        int new_cost = node->val + choix[move];
+        int *new_avails = malloc((node->nbSons - 1)* sizeof(int)); //creer les autre mouvement
         int idx = 0;
 
         //copier les autre mouv dispo sauf le dernier utiliser
-        for(int j=0; j<node->nbAvails; j++){
+        for(int j=0; j<node->nbSons; j++){
             if(node->avails[j] != move){
                 new_avails[idx++] = node->avails[j];
             }
         }
 
         //créé le noeud suivant (l'enfant quoi)
-        createNode(new_cost, node->depth+1, node->nbSons-1, new_avails, node->nbAvails);
+        createNode(new_cost, node->depth+1, node->nbSons-1, new_avails);
         free(new_avails);
-        creatTree(node->sons[i], maxDepth, mvCosts);
+        creatTree(node->sons[i], maxDepth, &new_cost);
     }
 }
 
@@ -83,7 +80,7 @@ t_node *findMinValueLeaf(t_node *root) {
 
 
 
-int isPath(t_node *root, t_node *node, t_stack *pile) {
+int is_Path(t_node *root, t_node *node, t_stack *pile) {
     if (root == NULL)
         return 0;
     push(pile, root->val);
@@ -91,7 +88,7 @@ int isPath(t_node *root, t_node *node, t_stack *pile) {
         return 1;
     }
     for (int i = 0; i < root->nbSons; i++) {
-        if(isPath(root->sons[i], node, pile))
+        if(is_Path(root->sons[i], node, pile))
             return 1;
     }
     pop(pile);
@@ -100,7 +97,7 @@ int isPath(t_node *root, t_node *node, t_stack *pile) {
 
 t_stack chemin (t_node *root, t_node *node_min) {
     t_stack pile = createStack(root->nbSons);
-    isPath(root, node_min, &pile);
+    is_Path(root, node_min, &pile);
     return pile;
 }
 
@@ -118,13 +115,13 @@ void displayTree(t_node *node, int level) {
     }
 
     // Affichage des informations du nœud
-    printf("Node (val: %d, depth: %d, nbSons: %d, nbAvails: %d, avails: [",
-           node->val, node->depth, node->nbSons, node->nbAvails);
+    printf("Node (val: %d, depth: %d, nbSons: %d, avails: [",
+           node->val, node->depth, node->nbSons);
 
     // Afficher le tableau avails
-    for (int i = 0; i < node->nbAvails; i++) {
+    for (int i = 0; i < node->nbSons; i++) {
         printf("%d", node->avails[i]);
-        if (i < node->nbAvails - 1) {
+        if (i < node->nbSons - 1) {
             printf(", ");
         }
     }

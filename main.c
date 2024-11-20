@@ -32,12 +32,12 @@ int main() {
     }
     displayMap(map);
     int avail[] = {1, 2};
-    t_node *root = createNode(10, 0, 2, avail, 2);
+    t_node *root = createNode(10, 0, 2, avail);
     printf("%d\n", root->val);
     // Créer les sous-arbres
-    root->sons[0] = createNode(3, 1, 0, NULL, 0);  // Feuille
-    root->sons[1] = createNode(15, 1, 1, NULL, 0);
-    root->sons[1]->sons[0] = createNode(7, 2, 0, NULL, 0);  // Feuille
+    root->sons[0] = createNode(3, 1, 0, NULL);  // Feuille
+    root->sons[1] = createNode(15, 1, 1, NULL);
+    root->sons[1]->sons[0] = createNode(7, 2, 0, NULL);  // Feuille
 
     // Trouver la feuille avec la valeur minimale
     t_node *minLeaf = findMinValueLeaf(root);
@@ -45,19 +45,19 @@ int main() {
     t_stack path = chemin (root, minLeaf);
     displayStack(path);
 
-// fonction affichage crash test debut
-displayTree(root, 0);
-// fonction affichage crash test fin
+    // fonction affichage crash test debut
+    //displayTree(root, 0);
+    // fonction affichage crash test fin
 
 
-/*
+
     //  tableau test des coûts de mouvement
     int mvCosts[] = {1, 2, 3, 4, 5}; // Exemple de valeurs de coûts
     int initialMoves[] = {0, 1, 2, 3, 4}; // Exemple de 5 mouvements possibles
-    int nbInitialMoves = sizeof(initialMoves) / sizeof(initialMoves[0]);
+    int nbInitialMoves = 5;
 
     // Créer la racine de l'arbre pour la phase
-    t_node *root = createNode(0, 0, nbInitialMoves, initialMoves, nbInitialMoves);
+    root = createNode(0, 0, nbInitialMoves, initialMoves);
 
     // Construire l'arbre pour la phase de 5 mouvements (ou 4 si case REG)
     int maxDepth = 5;
@@ -68,6 +68,6 @@ displayTree(root, 0);
     freeNode(root);
 
 
-    */return 0;
+    return 0;
 
 }

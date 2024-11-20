@@ -16,11 +16,10 @@ typedef struct s_node{
     int nbSons;
     struct s_node **sons;
     int *avails;
-    int nbAvails;
 } t_node;
 
 //cree noeud
-t_node *createNode(int val, int depth, int nb_sons, int *avails, int nbAvails);
+t_node *createNode(int val, int depth, int nb_sons, int *avails);
 
 //liberer un noeud
 void freeNode(t_node *node);
@@ -32,7 +31,7 @@ void creatTree(t_node *node, int maxDepth, int *mvCosts);
 t_node *findMinValueLeaf(t_node *root);
 
 //cherche un chemin
-int isPath(t_node *root, t_node *node, t_stack *pile);
+int is_Path(t_node *root, t_node *node, t_stack *pile);
 
 //chemin de la racine vers la feuille de valeur minimale
 t_stack chemin (t_node *node, t_node *node_min);
