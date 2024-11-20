@@ -59,7 +59,7 @@ int main() {
 
     // Construire l'arbre pour la phase de 5 mouvements (ou 4 si case REG)
     int maxDepth = 5;
-    creatTree(root, maxDepth, initialMoves);
+    creatTree(root, maxDepth);
 
 
     // Libérer l'arbre après usage
