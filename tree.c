@@ -32,7 +32,7 @@ void freeNode(t_node *node){
 }
 
 void creatTree(t_node *node, int maxDepth, int *choix){
-    printf("ca marche, noeud = %d\n", node->val);
+    printf("ca marche, depth = %d\n", node->depth);
     if (node->depth >= maxDepth){
         printf("depth max atteint, noeud = %d\n", node->val);
         return; //s'arreter a la profondeur maxi
@@ -41,18 +41,18 @@ void creatTree(t_node *node, int maxDepth, int *choix){
         printf("ca marche i, noeud = %d\n", node->val);
         int move = node->avails[i];
         int new_cost = move;
-        printf("val de l'enfant = %d\n", move);
         int *new_avails = malloc((node->nbSons - 1)* sizeof(int)); //creer les autre mouvement
         int idx = 0;
 
         //copier les autre mouv dispo sauf le dernier utiliser
+        printf("boucle j if, avails [");
         for(int j=0; j<node->nbSons; j++){
-            printf("ca marche boucle j, noeud = %d\n", node->val);
             if(node->avails[j] != move){
                 new_avails[idx++] = node->avails[j];
-                printf("ca marche boucle j if, avails = %d\n", node->avails[j]);
+                printf("%d, ", node->avails[j]);
             }
         }
+        printf("]\n");
         printf("ca marche sortie j, noeud = %d\n", node->val);
         //créé le noeud suivant (l'enfant quoi)
         node->sons[i] = createNode(new_cost, node->depth+1, node->nbSons-1, new_avails);
