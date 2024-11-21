@@ -62,7 +62,6 @@ void creatTree(t_node *node, int maxDepth){
         for(int j=0; j<node->nbSons; j++){
             if(node->avails[j] != move){
                 new_avails[idx++] = node->avails[j];
-                printf("%d, ", node->avails[j]);
             }
         }
         //créé le noeud suivant

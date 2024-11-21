@@ -53,16 +53,16 @@ int main() {
 */
 
     //  tableau test des coûts de mouvement
-    int initialMoves[] = {1, 2, 3, 4, 5}; // Exemple de 5 mouvements possibles
+    int initialMoves[] = {1, 2, 3, 4, 5, 6, 7, 8, 9}; // Exemple de 5 mouvements possibles
 
     // Créer la racine de l'arbre pour la phase
-    t_node *root = createNode(0, 0, 5, initialMoves);
+    t_node *root = createNode(0, 0, 9, initialMoves);
 
     // Construire l'arbre pour la phase de 5 mouvements (ou 4 si case REG)
-    int maxDepth = 3;
+    int maxDepth = 7;
     creatTree(root, maxDepth);
 
-    displayTree(root, 0);
+    //displayTree(root, 0);
     // Libérer l'arbre après usage
     freeNode(root);
 
