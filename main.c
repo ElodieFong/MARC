@@ -34,6 +34,18 @@ int main() {
     }
     displayMap(map);
     srand(time(NULL));
+
+    //temporaire parametre test path
+    static char _moves[8][8] = {"F 10m", "F 20m", "F 30m", "B 10m", "T left", "T right", "U-turn"};
+    #include "loc.h"
+    t_localisation start;
+    start.pos.x = 0;
+    start.pos.y = 0;
+    start.ori = 0;
+    // prendre le cout - selon le mouvement changer l'orienation
+    t_stack mv;// fin parametre test
+    path(start, &mv);
+    
     /*int avail[] = {1, 2};
     int son[] = {7};
     t_node *root = createNode(10, 0, 2, avail);
