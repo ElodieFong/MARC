@@ -80,4 +80,6 @@ t_position UP(t_position);
  */
 t_position DOWN(t_position);
 
+void path(t_localisation start, t_stack *mv);
+
 #endif //UNTITLED1_LOC_H
