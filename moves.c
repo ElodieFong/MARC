@@ -3,6 +3,8 @@
 //
 
 #include "moves.h"
+#include <stdlib.h>
+#include <stdio.h>
 
 /* prototypes of local functions */
 /* local functions are used only in this file, as helper functions */
@@ -152,4 +154,43 @@ void updateLocalisation(t_localisation *p_loc, t_move m)
 {
     *p_loc = move(*p_loc, m);
     return;
+}
+
+// réinitialise les pourcentages du tirages des mouvements
+void resetMoveAvailabilities() {
+    int initial_availabilities[7] = {22, 15, 7, 7, 21, 21, 7};
+    for (int i = 0; i < 7; i++) {
+        move_availabilities[i] = initial_availabilities[i];
+    }
+}
+
+t_move drawRandomMove() {
+    int total_available = 100;
+    int rand_value = rand() % total_available;
+    for (int i = 0; i < 7; i++) {
+        if (rand_value < move_availabilities[i]) {
+            move_availabilities[i]--;
+            return (t_move)i;
+        }
+        rand_value -= move_availabilities[i];
+    }
+    return 0;
+}
+
+void mouvPoll(int choix) {
+    t_move moves[choix];
+    // tirer les mouvements
+    for (int i = 0; i < choix; i++) {
+        moves[i] = drawRandomMove();
+        if (moves[i] == -1) {
+            return;
+        }
+        printf("Drawn move: %s\n", getMoveAsString(moves[i]));
+    }
+
+
+    printf("Selected moves for execution:\n");
+    for (int i = 0; i < choix; i++) {
+        printf("Move %d: %s\n", i + 1, getMoveAsString(moves[i]));
+    }
 }

@@ -50,4 +50,9 @@ t_localisation move(t_localisation, t_move);
  */
 void updateLocalisation(t_localisation *, t_move);
 
+static int move_availabilities[7] = {22, 15, 7, 7, 21, 21, 7};
+void resetMoveAvailabilities();
+t_move drawRandomMove();
+void mouvPoll(int choix);
+
 #endif //UNTITLED1_MOVES_H

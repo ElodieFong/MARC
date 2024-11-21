@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include "map.h"
 #include "tree.h"
+#include "moves.h"
+#include <time.h>
 
 int main() {
     t_map map;
@@ -31,6 +33,7 @@ int main() {
         printf("\n");
     }
     displayMap(map);
+    srand(time(NULL));
     /*int avail[] = {1, 2};
     int son[] = {7};
     t_node *root = createNode(10, 0, 2, avail);
@@ -66,6 +69,14 @@ int main() {
     // Libérer l'arbre après usage
     freeNode(root);
 
+    t_localisation loc = loc_init(0, 0, NORTH); // Start at (0, 0) facing NORTH
+
+
+    printf("\nPhase \n");
+
+
+    resetMoveAvailabilities();
+    mouvPoll(3);
 
     return 0;
 
