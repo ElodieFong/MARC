@@ -65,7 +65,7 @@ int main() {
 
 */
     //  tableau test des coûts de mouvement
-    int initialMoves[] = {6, 2, 0, 4, 5}; // Exemple de 5 mouvements possibles
+    int initialMoves[] = {0, 2, 0, 4, 5}; // Exemple de 5 mouvements possibles
 
     // Créer la racine de l'arbre pour la phase
     t_node *root = createNode(1, 0, 5, initialMoves, NOTHING);

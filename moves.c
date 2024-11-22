@@ -180,7 +180,6 @@ void mouvPoll(int choix) {
         }
     }
 
-
     printf("Moves in the poll:\n");
     for (int i = 0; i < choix; i++) {
         printf("Move %d: %s\n", i + 1, getMoveAsString(moves[i]));
