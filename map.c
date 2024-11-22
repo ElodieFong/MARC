@@ -315,7 +315,7 @@ characters are : B for base station, '-' for plain, '~' for erg, '^' for reg, ' 
                 if(marc.pos.x == j && marc.pos.y == i){
                     if (rep == 1) {
                         strcpy(c, " M ");} else {
-                        strcpy(c, "   ");}
+                        strcpy(c, "|_|");}
                 }
                 else{
                     switch (map.soils[i][j]) {
