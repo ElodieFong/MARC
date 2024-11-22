@@ -52,22 +52,32 @@ void creatTree(t_node *node, int maxDepth, t_move* mouvPoll){
         return; //s'arreter a la profondeur maxi
         }
     for(int i = 0; i<node->nbSons; i++){
-        int move = node->avails[i];
-        int new_cost = move;
+        int cost = node->avails[i];
+        int new_cost = cost;
         int *new_avails = malloc((node->nbSons - 1)* sizeof(int)); //nouveau tableau sans la val du noeud
         t_move *newPoll = malloc((node->nbSons - 1)* sizeof(t_move)); //nouveau tableau sans le mouvement du noeud
         int idx = 0;
         //copier les autre mouv dispo sauf le dernier utiliser
         for(int j=0; j<node->nbSons; j++){
-            if(node->avails[j] != move){
+            if(node->avails[j] != cost){
                 new_avails[idx] = node->avails[j];
                 newPoll[idx++] = mouvPoll[j];
             }
         }
-        //créé le noeud suivant
-        node->sons[i] = createNode(new_cost, node->depth+1, node->nbSons-1, new_avails, mouvPoll[i]);
-        free(new_avails);
-        creatTree(node->sons[i], maxDepth, newPoll);
+        if (cost == 0 || cost >= 10000)
+        {
+
+            node->sons[i] = createNode(new_cost, node->depth+1, 0, new_avails, mouvPoll[i]);
+            creatTree(node->sons[i], maxDepth, newPoll);
+        }
+        else
+        {
+            //créé le noeud suivant
+            node->sons[i] = createNode(new_cost, node->depth+1, node->nbSons-1, new_avails, mouvPoll[i]);
+            free(new_avails);
+            creatTree(node->sons[i], maxDepth, newPoll);
+        }
+
     }
 }
 
@@ -82,7 +92,15 @@ t_node *findMinValueLeaf(t_node *root) {
     t_node *minLeaf = NULL;
     for (int i = 0; i < root->nbSons; i++) {
         t_node *leaf = findMinValueLeaf(root->sons[i]);
+        if (leaf != NULL && leaf->val == 0) {
+            return leaf; // Retourne immédiatement si une feuille avec val == 0 est trouvée
+        }
         if (leaf != NULL) {
+            if (leaf->val == 0)
+            {
+                minLeaf = leaf;
+                return minLeaf;
+            }
             // Si c'est le premier minLeaf ou si on trouve une feuille avec une valeur inférieure
             if (minLeaf == NULL || leaf->val < minLeaf->val) {
                 minLeaf = leaf;
@@ -93,7 +111,6 @@ t_node *findMinValueLeaf(t_node *root) {
 }
 
 
-
 int is_Path(t_node *root, t_node *node, t_stack *pile) {
     if (root == NULL)
         return 0;
@@ -101,6 +118,7 @@ int is_Path(t_node *root, t_node *node, t_stack *pile) {
     if (root == node) {
         return 1;
     }
+    printf("val du noeud = %d, mouv du noeud = %s\n", root->val, getMoveAsString(root->mouvement));
     for (int i = 0; i < root->nbSons; i++) {
         if(is_Path(root->sons[i], node, pile))
             return 1;

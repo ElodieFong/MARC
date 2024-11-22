@@ -346,4 +346,15 @@ characters are : B for base station, '-' for plain, '~' for erg, '^' for reg, ' 
     return;
 }
 
+t_localisation loc_aleatoire(t_map map) {
+    int x_alea, y_alea;
+    t_localisation alea_loc;
+    x_alea = rand() % map.x_max;
+    alea_loc.pos.x = x_alea;
+    y_alea = rand() % map.y_max;
+    alea_loc.pos.y = y_alea;
+    alea_loc.ori = rand() % 3;
 
+    printf("x=%d, y=%d, ori=%d", alea_loc.pos.x, alea_loc.pos.y, alea_loc.ori);
+    return alea_loc;
+}

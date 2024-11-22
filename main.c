@@ -39,6 +39,7 @@ int main() {
     marc.ori = 1;
     marc.pos.x =1;
     marc.pos.y =1;
+    marc = loc_aleatoire(map);
     displayMap(map, marc);
     //fin test de mae
 /*
@@ -64,14 +65,14 @@ int main() {
 
 */
     //  tableau test des coûts de mouvement
-    int initialMoves[] = {1, 2, 3, 4, 5, 6, 7, 8, 9}; // Exemple de 5 mouvements possibles
+    int initialMoves[] = {6, 2, 0, 4, 5}; // Exemple de 5 mouvements possibles
 
     // Créer la racine de l'arbre pour la phase
-    t_node *root = createNode(0, 0, 5, initialMoves, NOTHING);
+    t_node *root = createNode(1, 0, 5, initialMoves, NOTHING);
 
     // Construire l'arbre pour la phase de 5 mouvements (ou 4 si case REG)
     int maxDepth = 3;
-    t_move poll[] = { T_LEFT, F_20, T_RIGHT, F_10, T_RIGHT};
+    t_move poll[] = { T_LEFT, F_20, F_30, F_10, T_RIGHT};
     creatTree(root, maxDepth, poll);
 
     displayTree(root, 0);
@@ -82,7 +83,7 @@ int main() {
     // Libérer l'arbre après usage
     freeNode(root);
 
-    t_localisation loc = loc_init(0, 0, NORTH); // Start at (0, 0) facing NORTH
+    //t_localisation loc = loc_init(0, 0, NORTH); // Start at (0, 0) facing NORTH
 
     resetMoveAvailabilities();
     mouvPoll(3);

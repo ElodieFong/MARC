@@ -57,4 +57,6 @@ t_map createMapFromFile(char *);
 //void displayMap(t_map);
 void displayMap(t_map , t_localisation);
 
+t_localisation loc_aleatoire(t_map map);
+
 #endif //UNTITLED1_MAP_H
