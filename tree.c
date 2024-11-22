@@ -72,13 +72,12 @@ void creatTree(t_node *node, int maxDepth, t_move* mouvPoll){
 }
 
 t_node *findMinValueLeaf(t_node *root) {
-    if (root == NULL) return NULL;
-
+    if (root == NULL)
+        return NULL;
     // Cas d'une feuille
-    if (root->nbSons == 0) {
+    if (root->sons[0] == NULL) {
         return root;
     }
-
     // explorer les fils
     t_node *minLeaf = NULL;
     for (int i = 0; i < root->nbSons; i++) {

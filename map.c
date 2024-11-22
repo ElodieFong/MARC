@@ -313,7 +313,10 @@ characters are : B for base station, '-' for plain, '~' for erg, '^' for reg, ' 
             for (int j = 0; j < map.x_max; j++){
                 char c[4];
                 if(marc.pos.x == j && marc.pos.y == i){
-                    strcpy(c, "XXX");}
+                    if (rep == 1) {
+                        strcpy(c, " M ");} else {
+                        strcpy(c, "   ");}
+                }
                 else{
                     switch (map.soils[i][j]) {
                         case BASE_STATION:

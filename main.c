@@ -41,7 +41,7 @@ int main() {
     marc.pos.y =1;
     displayMap(map, marc);
     //fin test de mae
-
+/*
     int avail[] = {1, 2};
     int son[] = {7};
     t_node *root = createNode(10, 0, 2, avail, 7);
@@ -62,12 +62,12 @@ int main() {
     // fonction affichage crash test fin
 
 
-
+*/
     //  tableau test des coûts de mouvement
     int initialMoves[] = {1, 2, 3, 4, 5, 6, 7, 8, 9}; // Exemple de 5 mouvements possibles
 
     // Créer la racine de l'arbre pour la phase
-    root = createNode(0, 0, 5, initialMoves, NOTHING);
+    t_node *root = createNode(0, 0, 5, initialMoves, NOTHING);
 
     // Construire l'arbre pour la phase de 5 mouvements (ou 4 si case REG)
     int maxDepth = 3;
@@ -75,6 +75,10 @@ int main() {
     creatTree(root, maxDepth, poll);
 
     displayTree(root, 0);
+    t_node *minLeaf = findMinValueLeaf(root);
+    printf("Feuille avec la valeur minimale: %d\n", minLeaf->val);
+    t_stack path = chemin (root, minLeaf);
+    displayStack(path);
     // Libérer l'arbre après usage
     freeNode(root);
 

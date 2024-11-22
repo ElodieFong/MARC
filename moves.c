@@ -156,7 +156,6 @@ t_move drawRandomMove() {
     for (int i = 0; i < 7; i++) {
         total_available += move_availabilities[i];
     }
-    printf("%d  ", total_available);
     if (total_available == 0) {
         return 0;
     }
