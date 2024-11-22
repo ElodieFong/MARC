@@ -2,9 +2,10 @@
 // Created by flasque on 19/10/2024.
 //
 
-#include "moves.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include "moves.h"
+#include "loc.h"
 
 /* prototypes of local functions */
 /* local functions are used only in this file, as helper functions */
@@ -142,20 +143,6 @@ char *getMoveAsString(t_move move)
     return _moves[move];
 }
 
-t_localisation move(t_localisation loc, t_move move)
-{
-    t_localisation new_loc;
-    new_loc.ori = rotate(loc.ori, move);
-    new_loc = translate(loc, move);
-    return new_loc;
-}
-
-void updateLocalisation(t_localisation *p_loc, t_move m)
-{
-    *p_loc = move(*p_loc, m);
-    return;
-}
-
 // réinitialise les pourcentages du tirages des mouvements
 void resetMoveAvailabilities() {
     int initial_availabilities[7] = {22, 15, 7, 7, 21, 21, 7};
@@ -185,11 +172,10 @@ void mouvPoll(int choix) {
         if (moves[i] == -1) {
             return;
         }
-        printf("Drawn move: %s\n", getMoveAsString(moves[i]));
     }
 
 
-    printf("Selected moves for execution:\n");
+    printf("Moves in the poll:\n");
     for (int i = 0; i < choix; i++) {
         printf("Move %d: %s\n", i + 1, getMoveAsString(moves[i]));
     }

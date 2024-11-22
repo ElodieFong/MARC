@@ -2,7 +2,10 @@
 // Created by flasque on 19/10/2024.
 //
 
+#include <stdlib.h>
 #include "loc.h"
+#include "moves.h"
+#include "stack.h"
 
 t_localisation loc_init(int x, int y, t_orientation ori)
 {
@@ -51,22 +54,17 @@ t_position DOWN(t_position pos)
 }
 
 
-
-#include "moves.h"
-#include "tree.h"
-#include "stack.h"
-
-
+/*
 //mettre dans un liste les cout associer au mouv - cout de (y-1)
 #define MAX_MOVES 100 // Limite arbitraire pour le nombre de positions visitées
 
 
 void path(t_localisation start, t_stack *mv){
-    /*t_position path[MAX_MOVES];
+    t_position path[MAX_MOVES];
     int path_length = 0;
 
     // Ajouter la position de départ au chemin
-    path[path_length++] = start.pos;*/
+    path[path_length++] = start.pos;
 
     // Mettre à jour la localisation avec chaque mouvement de la pile
     t_localisation now = start;
@@ -95,9 +93,9 @@ void path(t_localisation start, t_stack *mv){
     printf("Path:\n");
     for (int i = 0; i < path_length; i++) {
     printf("(%d, %d)\n", path[i].x, path[i].y);
-    }*/
+    }
 
     // Libérer la mémoire allouée au tableau
     free(path);
 }
-
+*/

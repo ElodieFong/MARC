@@ -73,7 +73,7 @@ void displayStack(t_stack s)
         int i = s.nbElts;
         while (i != 0)
         {
-            printf(" : %d ", *(s.values+i-1));
+            printf(" : %s ", getMoveAsString(*(s.values+i-1)));
             i--;
         }
         printf("]\n");

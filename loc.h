@@ -4,6 +4,7 @@
 
 #ifndef UNTITLED1_LOC_H
 #define UNTITLED1_LOC_H
+#include "stack.h"
 
 /**
  * @brief Enum for the orientation of the robot (NORTH, EAST, SOUTH, WEST)
@@ -80,6 +81,6 @@ t_position UP(t_position);
  */
 t_position DOWN(t_position);
 
-void path(t_localisation start, t_stack *mv);
+//void path(t_localisation start, t_stack *mv);
 
 #endif //UNTITLED1_LOC_H

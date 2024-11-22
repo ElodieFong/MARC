@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include "map.h"
 #include "stack.h"
+#include "moves.h"
 
 // structure d'un noeud
 typedef struct s_node{
@@ -16,16 +17,17 @@ typedef struct s_node{
     int nbSons;
     struct s_node **sons;
     int *avails;
+    t_move mouvement;
 } t_node;
 
 //cree noeud
-t_node *createNode(int val, int depth, int nb_sons, int *avails);
+t_node *createNode(int val, int depth, int nb_sons, int *avails, t_move mouvement);
 
 //liberer un noeud
 void freeNode(t_node *node);
 
 //creer l'arbre
-void creatTree(t_node *node, int maxDepth);
+void creatTree(t_node *node, int maxDepth, t_move* mouvPoll);
 
 //valeur min d'une feuille
 t_node *findMinValueLeaf(t_node *root);

@@ -5,12 +5,11 @@
 #ifndef UNTITLED1_MOVES_H
 #define UNTITLED1_MOVES_H
 
-#include "loc.h"
 
 /**
  * @brief Array of strings for the possible moves of the robot
  */
-static char _moves[8][8] = {"F 10m", "F 20m", "F 30m", "B 10m", "T left", "T right", "U-turn"};
+static char _moves[8][8] = {"F 10m", "F 20m", "F 30m", "B 10m", "T left", "T right", "U-turn", "NULL"};
 
 /**
  * @brief Enum for the possible moves of the robot
@@ -24,7 +23,8 @@ typedef enum e_move
     B_10, // Backward 10 m
     T_LEFT, // Turn left (+90°)
     T_RIGHT, // Turn right (-90°)
-    U_TURN
+    U_TURN,
+    NOTHING
 } t_move;
 
 /**
@@ -40,7 +40,6 @@ char *getMoveAsString(t_move move);
  * @param move : the move to do
  * @return the new localisation of the robot
  */
-t_localisation move(t_localisation, t_move);
 
 /**
  * @brief wrapper function to update a single location
@@ -48,7 +47,6 @@ t_localisation move(t_localisation, t_move);
  * @param move : the move to do
  * @return none
  */
-void updateLocalisation(t_localisation *, t_move);
 
 static int move_availabilities[7] = {22, 15, 7, 7, 21, 21, 7};
 void resetMoveAvailabilities();

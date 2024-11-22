@@ -4,13 +4,14 @@
 
 #ifndef UNTITLED1_STACK_H
 #define UNTITLED1_STACK_H
+#include "moves.h"
 
 /**
  * @brief Structure for the stack of integers
  */
 typedef struct s_stack
 {
-    int *values;
+    t_move *values;
     int size;
     int nbElts;
 } t_stack;
