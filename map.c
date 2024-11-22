@@ -252,13 +252,13 @@ t_map createTrainingMap()
     return createMapFromFile("..\\maps\\training.map");
 }
 
-void displayMap(t_map map)
+/*void displayMap(t_map map)
 {
-    /** the rules for display are :
-     * display all soils with 3x3 characters
-     * characters are : B for base station, '-' for plain, '~' for erg, '^' for reg, ' ' for crevasse
-     */
-    for (int i = 0; i < map.y_max; i++)
+    /// the rules for display are :
+     //display all soils with 3x3 characters
+     //characters are : B for base station, '-' for plain, '~' for erg, '^' for reg, ' ' for crevasse
+     //
+   for (int i = 0; i < map.y_max; i++)
     {
         for (int rep = 0; rep < 3; rep++)
         {
@@ -300,4 +300,47 @@ void displayMap(t_map map)
 
     }
     return;
+}*/
+
+void displayMap(t_map map, t_localisation marc)
+{
+    /** the rules for display are :
+
+display all soils with 3x3 characters
+characters are : B for base station, '-' for plain, '~' for erg, '^' for reg, ' ' for crevasse*/
+    for (int i = 0; i < map.y_max; i++){
+        for (int rep = 0; rep < 3; rep++){
+            for (int j = 0; j < map.x_max; j++){
+                char c[4];
+                if(marc.pos.x == j && marc.pos.y == i){
+                    strcpy(c, "XXX");}
+                else{
+                    switch (map.soils[i][j]) {
+                        case BASE_STATION:
+                            if (rep == 1) {
+                                strcpy(c, " B ");} else {
+                                strcpy(c, "   ");}
+                            break;
+                        case PLAIN:
+                            strcpy(c, "---");
+                            break;
+                        case ERG:
+                            strcpy(c, "~~~");
+                            break;
+                        case REG:
+                            strcpy(c, "^^^");
+                            break;
+                        case CREVASSE:
+                            sprintf(c, "%c%c%c", 219, 219, 219);
+                            break;
+                        default:
+                            strcpy(c, "???");
+                            break;}}
+                printf("%s", c);}
+            printf("\n");}
+
+    }
+    return;
 }
+
+

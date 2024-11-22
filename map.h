@@ -4,6 +4,7 @@
 
 #ifndef UNTITLED1_MAP_H
 #define UNTITLED1_MAP_H
+#include "loc.h"
 
 #define COST_UNDEF 65535
 /**
@@ -53,6 +54,7 @@ t_map createMapFromFile(char *);
  * @brief display the map with characters
  * @param map : the map to display
  */
-void displayMap(t_map);
+//void displayMap(t_map);
+void displayMap(t_map , t_localisation);
 
 #endif //UNTITLED1_MAP_H

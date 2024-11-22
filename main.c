@@ -31,8 +31,16 @@ int main() {
         }
         printf("\n");
     }
-    displayMap(map);
+    //displayMap(map);
     srand(time(NULL));
+
+    //test de mae
+    t_localisation marc;
+    marc.ori = 1;
+    marc.pos.x =1;
+    marc.pos.y =1;
+    displayMap(map, marc);
+    //fin test de mae
 
     int avail[] = {1, 2};
     int son[] = {7};
