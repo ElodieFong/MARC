@@ -152,7 +152,14 @@ void resetMoveAvailabilities() {
 }
 
 t_move drawRandomMove() {
-    int total_available = 100;
+    int total_available = 0;
+    for (int i = 0; i < 7; i++) {
+        total_available += move_availabilities[i];
+    }
+    printf("%d  ", total_available);
+    if (total_available == 0) {
+        return 0;
+    }
     int rand_value = rand() % total_available;
     for (int i = 0; i < 7; i++) {
         if (rand_value < move_availabilities[i]) {
