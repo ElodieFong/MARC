@@ -69,7 +69,7 @@ void creatTree(t_node *node, int maxDepth, t_move* mouvPoll){
         int idx = 0;
         //copier les autre mouv dispo sauf le dernier utiliser
         for(int j=0; j<node->nbSons; j++){
-            if(node->avails[j] != cost){
+            if(j != i){
                 new_avails[idx] = node->avails[j];
                 newPoll[idx++] = mouvPoll[j];
             }
@@ -95,13 +95,10 @@ void creatTree(t_node *node, int maxDepth, t_move* mouvPoll){
 
 t_node *findMinValueLeaf(t_node *root) {
     if (root == NULL) return NULL;
-
-
     // Cas d'une feuille
     if (root->nbSons == 0) {
         return root;
     }
-
 
     // explorer les fils
     t_node *minLeaf = NULL;
@@ -165,9 +162,12 @@ int is_Path(t_node *root, t_node *node, t_stack *pile) {
 t_stack chemin (t_node *root, t_node *node_min) {
     t_stack pile = createStack(node_min->depth+1);
     is_Path(root, node_min, &pile);
+    int taille = pile.nbElts;
     t_stack stack = createStack(pile.nbElts);
-    for (int i = 0; i < root->nbSons; i++) {
-        push(&stack, pop(&pile));
+    for (int i = 0; i < taille; i++) {
+        t_move mv = pop(&pile);
+        push(&stack, mv);
+        printf("%s    ", getMoveAsString(mv));
     }
     return stack;
 }

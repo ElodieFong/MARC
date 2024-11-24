@@ -69,7 +69,7 @@ int main() {
     //pathfinder(alea, &path);
 */
     //  tableau test des coûts de mouvement
-    int initialMoves[] = {1, 3, 2, 4, 5}; // Exemple de 5 mouvements possibles
+    int initialMoves[] = {1, 3, 1, 4, 5}; // Exemple de 5 mouvements possibles
 
     // Créer la racine de l'arbre pour la phase
     t_node *root = createNode(1, 2, 3, initialMoves, NOTHING, marc);
