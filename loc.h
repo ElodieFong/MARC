@@ -81,6 +81,12 @@ t_position UP(t_position);
  */
 t_position DOWN(t_position);
 
-//void path(t_localisation start, t_stack *mv);
+void pathfinder(t_localisation start, t_stack *mv);
+
+void updateLocalisation(t_localisation *, t_move);
+
+t_orientation rotate(t_orientation ori, t_move move);
+t_localisation translate(t_localisation , t_move);
+
 
 #endif //UNTITLED1_LOC_H

@@ -5,6 +5,7 @@
 #ifndef UNTITLED1_MAP_H
 #define UNTITLED1_MAP_H
 #include "loc.h"
+#include <time.h>
 
 #define COST_UNDEF 65535
 /**
@@ -58,5 +59,9 @@ t_map createMapFromFile(char *);
 void displayMap(t_map , t_localisation);
 
 t_localisation loc_aleatoire(t_map map);
+
+t_map createAleaMap();
+
+int **coutCase(t_localisation loc, t_move mv, t_map map);
 
 #endif //UNTITLED1_MAP_H

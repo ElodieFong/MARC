@@ -18,10 +18,11 @@ typedef struct s_node{
     struct s_node **sons;
     int *avails;
     t_move mouvement;
+    t_localisation loc;
 } t_node;
 
 //cree noeud
-t_node *createNode(int val, int depth, int nb_sons, int *avails, t_move mouvement);
+t_node *createNode(int val, int depth, int nb_sons, int *avails, t_move mouvement, t_localisation loc);
 
 //liberer un noeud
 void freeNode(t_node *node);

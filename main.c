@@ -13,6 +13,7 @@ int main() {
 #else
     map = createMapFromFile("../maps/example1.map");
 #endif
+    //map = createAleaMap();
     printf("Map created with dimensions %d x %d\n", map.y_max, map.x_max);
     for (int i = 0; i < map.y_max; i++)
     {
@@ -42,6 +43,9 @@ int main() {
     marc = loc_aleatoire(map);
     displayMap(map, marc);
     //fin test de mae
+
+    t_localisation alea = loc_aleatoire(map);
+    displayMap(map, alea);
 /*
     int avail[] = {1, 2};
     int son[] = {7};
@@ -62,24 +66,25 @@ int main() {
     displayTree(root, 0);
     // fonction affichage crash test fin
 
-
+    //pathfinder(alea, &path);
 */
     //  tableau test des coûts de mouvement
-    int initialMoves[] = {0, 2, 0, 4, 5}; // Exemple de 5 mouvements possibles
+    int initialMoves[] = {1, 3, 2, 4, 5}; // Exemple de 5 mouvements possibles
 
     // Créer la racine de l'arbre pour la phase
-    t_node *root = createNode(1, 0, 5, initialMoves, NOTHING);
+    t_node *root = createNode(1, 2, 3, initialMoves, NOTHING, marc);
 
     // Construire l'arbre pour la phase de 5 mouvements (ou 4 si case REG)
-    int maxDepth = 3;
+    int maxDepth = 5;
     t_move poll[] = { T_LEFT, F_20, F_30, F_10, T_RIGHT};
     creatTree(root, maxDepth, poll);
 
     displayTree(root, 0);
-    t_node *minLeaf = findMinValueLeaf(root);
-    printf("Feuille avec la valeur minimale: %d\n", minLeaf->val);
-    t_stack path = chemin (root, minLeaf);
+    t_node *min = findMinValueLeaf(root);
+    printf("Feuille avec la valeur minimale: %d\n", min->val);
+    t_stack path = chemin (root, min);
     displayStack(path);
+    pathfinder(alea, &path);
     // Libérer l'arbre après usage
     freeNode(root);
 

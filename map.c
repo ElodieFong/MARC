@@ -252,56 +252,6 @@ t_map createTrainingMap()
     return createMapFromFile("..\\maps\\training.map");
 }
 
-/*void displayMap(t_map map)
-{
-    /// the rules for display are :
-     //display all soils with 3x3 characters
-     //characters are : B for base station, '-' for plain, '~' for erg, '^' for reg, ' ' for crevasse
-     //
-   for (int i = 0; i < map.y_max; i++)
-    {
-        for (int rep = 0; rep < 3; rep++)
-        {
-            for (int j = 0; j < map.x_max; j++)
-            {
-                char c[4];
-                switch (map.soils[i][j])
-                {
-                    case BASE_STATION:
-                        if (rep==1)
-                        {
-                            strcpy(c, " B ");
-                        }
-                        else
-                        {
-                            strcpy(c, "   ");
-                        }
-                        break;
-                    case PLAIN:
-                        strcpy(c, "---");
-                        break;
-                    case ERG:
-                        strcpy(c, "~~~");
-                        break;
-                    case REG:
-                        strcpy(c, "^^^");
-                        break;
-                    case CREVASSE:
-                        sprintf(c, "%c%c%c",219,219,219);
-                        break;
-                    default:
-                        strcpy(c, "???");
-                        break;
-                }
-                printf("%s", c);
-            }
-            printf("\n");
-        }
-
-    }
-    return;
-}*/
-
 void displayMap(t_map map, t_localisation marc)
 {
     /** the rules for display are :
@@ -355,6 +305,106 @@ t_localisation loc_aleatoire(t_map map) {
     alea_loc.pos.y = y_alea;
     alea_loc.ori = rand() % 3;
 
-    printf("x=%d, y=%d, ori=%d", alea_loc.pos.x, alea_loc.pos.y, alea_loc.ori);
+    printf("x=%d, y=%d, ori=%d\n", alea_loc.pos.x, alea_loc.pos.y, alea_loc.ori);
     return alea_loc;
+}
+
+t_map createAleaMap() {
+    t_map map;
+    int xdim, ydim;
+
+    // Initialiser la graine aléatoire une seule fois
+    static int srand_initialized = 0;
+    if (!srand_initialized) {
+        srand(time(NULL));
+        srand_initialized = 1;
+    }
+
+    // Générer des dimensions entre 1 et 20 inclus
+    xdim = 1 + rand() % 20;
+    ydim = 1 + rand() % 20;
+
+    map.x_max = xdim;
+    map.y_max = ydim;
+
+    // Allouer la mémoire pour la carte
+    map.soils = (t_soil **)malloc(ydim * sizeof(t_soil *));
+    if (!map.soils) {
+        fprintf(stderr, "Erreur : échec de l'allocation mémoire pour soils.\n");
+        exit(1);
+    }
+    for (int i = 0; i < ydim; i++) {
+        map.soils[i] = (t_soil *)malloc(xdim * sizeof(t_soil));
+        if (!map.soils[i]) {
+            fprintf(stderr, "Erreur : échec de l'allocation mémoire pour soils[%d].\n", i);
+            exit(1);
+        }
+    }
+    map.costs = (int **)malloc(ydim * sizeof(int *));
+    if (!map.costs) {
+        fprintf(stderr, "Erreur : échec de l'allocation mémoire pour costs.\n");
+        exit(1);
+    }
+    for (int i = 0; i < ydim; i++) {
+        map.costs[i] = (int *)malloc(xdim * sizeof(int));
+        if (!map.costs[i]) {
+            fprintf(stderr, "Erreur : échec de l'allocation mémoire pour costs[%d].\n", i);
+            exit(1);
+        }
+    }
+
+    // Initialiser une BASE_STATION aléatoire
+    int base_x = rand() % xdim;
+    int base_y = rand() % ydim;
+
+    // Générer la carte aléatoire
+    for (int i = 0; i < ydim; i++) {
+        for (int j = 0; j < xdim; j++) {
+            int value = 1 + rand() % 5; // Valeurs possibles : 0 à 4
+
+            // Forcer la BASE_STATION sur la position aléatoire
+            if (i == base_y && j == base_x) {
+                value = BASE_STATION;
+            }
+
+            map.soils[i][j] = value;
+            map.costs[i][j] = (value == BASE_STATION) ? 0 : COST_UNDEF;
+        }
+    }
+
+    // Appeler calculateCosts et removeFalseCrevasses uniquement si une BASE_STATION est placée
+    if (map.soils[base_y][base_x] == BASE_STATION) {
+        calculateCosts(map);
+        removeFalseCrevasses(map);
+    } else {
+        fprintf(stderr, "Erreur : aucune BASE_STATION valide détectée sur la carte.\n");
+        exit(1);
+    }
+
+    return map;
+}
+
+int **coutCase(t_localisation loc, t_move mv, t_map map)
+{
+    int cout;
+    //si turn ou null
+    if(mv == T_LEFT || mv == T_RIGHT || mv == U_TURN || mv == NOTHING){
+        //return cout de (loc.x, loc.y)
+        cout = map.costs[loc.pos.x][loc.pos.y];
+        printf("\n cout de la case : %d", cout);
+
+    }
+    else
+    {
+        translate(loc, mv);
+        cout = map.costs[loc.pos.x][loc.pos.y];
+        printf("\n cout de la case : %d", cout);
+    }
+    return &cout;
+    //si advance
+    //selon rotation
+    //ajoute + ou - Ã x ou y
+
+    // cout de loc
+
 }
